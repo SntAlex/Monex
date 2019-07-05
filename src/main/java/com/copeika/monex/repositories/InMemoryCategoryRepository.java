@@ -5,6 +5,7 @@ import com.copeika.monex.exception.NotFoundException;
 import com.copeika.monex.models.Category;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,60 +22,64 @@ public class InMemoryCategoryRepository implements CategoryRepository {
     @Override
     public Category addCategory(String name) {
         Category category = new Category();
-        String id = UUID.randomUUID().toString();
-        category.setId(id);
         category.setName(name);
         category.setMoney_expenditures(0);
-        categoryCache.put(id, category);
+        categoryCache.put(name, category);
         return category;
     }
 
     @Override
-    public void deleteCategory(String id) {
-        if (!categoryCache.containsKey(id)) {
+    public void deleteCategory(String name) {
+        if (!categoryCache.containsKey(name)) {
             throw new NotFoundException();
         }
-        categoryCache.remove(id);
+        categoryCache.remove(name);
     }
 
     @Override
-    public Category renameCategory(String id, String name) {
-        if (!categoryCache.containsKey(id)) {
+    public Category renameCategory(String name, String after_name) {
+        if (!categoryCache.containsKey(name)) {
             throw new NotFoundException();
         }
-        Category category = categoryCache.get(id);
-        category.setName(name);
-        categoryCache.put(id, category);
+        Category category = categoryCache.get(name);
+        category.setName(after_name);
+        categoryCache.remove(name);
+        categoryCache.put(after_name, category);
         return category;
     }
 
     @Override
-    public Category fetchCategory(String id) {
-        if (!categoryCache.containsKey(id)) {
+    public Category fetchCategory(String name) {
+        if (!categoryCache.containsKey(name)) {
             throw new NotFoundException();
         }
-        return categoryCache.get(id);
+        return categoryCache.get(name);
     }
 
     @Override
-    public Category setLimit(String id, Integer limit) {
-        if (!categoryCache.containsKey(id)) {
+    public Category setLimit(String name, Integer limit) {
+        if (!categoryCache.containsKey(name)) {
             throw new NotFoundException();
         }
-        Category category = categoryCache.get(id);
+        Category category = categoryCache.get(name);
         category.setLimit(limit);
-        categoryCache.put(id, category);
+        categoryCache.put(name, category);
         return  category;
     }
 
     @Override
-    public Category addMonetaryExpenditures(String id, Integer money_expenditures) {
-        if (!categoryCache.containsKey(id)) {
+    public Category addMonetaryExpenditures(String name, Integer money_expenditures) {
+        if (!categoryCache.containsKey(name)) {
             throw new NotFoundException();
         }
-        Category category = categoryCache.get(id);
+        Category category = categoryCache.get(name);
         category.addMoneyExpenditures(money_expenditures);
-        categoryCache.put(id, category);
+        categoryCache.put(name, category);
         return category;
+    }
+
+    @Override
+    public Collection<Category> getAllBooks() {
+        return categoryCache.values();
     }
 }

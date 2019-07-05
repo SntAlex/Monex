@@ -1,7 +1,7 @@
 package com.copeika.monex.models;
 
 public class Category {
-    private String id;
+
     private  String name;
     private Integer limit;
     private Integer money_expenditures;
@@ -37,14 +37,6 @@ public class Category {
 
     public void setMoney_expenditures(Integer money_expenditures) {
         this.money_expenditures = money_expenditures;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void addMoneyExpenditures(Integer money_expenditures) {

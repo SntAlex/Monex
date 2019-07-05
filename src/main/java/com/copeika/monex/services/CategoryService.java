@@ -6,6 +6,8 @@ import com.copeika.monex.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
@@ -19,23 +21,27 @@ public class CategoryService {
          return categoryRepository.addCategory(name);
      }
 
-     public Category renameCategory(String id, String name){
-        return categoryRepository.renameCategory(id, name);
+     public Category renameCategory(String name, String after_name){
+        return categoryRepository.renameCategory(name, after_name);
      }
 
-     public Category fetchCategory(String id){
-        return categoryRepository.fetchCategory(id);
+     public Category fetchCategory(String name){
+        return categoryRepository.fetchCategory(name);
      }
 
-     public Category setLimit(String id, Integer limit) {
-         return categoryRepository.setLimit(id, limit);
+     public Category setLimit(String name, Integer limit) {
+         return categoryRepository.setLimit(name, limit);
      }
 
-     public Category addMonetaryExpenditures(String id, Integer money_expenditures) {
-         return categoryRepository.addMonetaryExpenditures(id, money_expenditures);
+     public Category addMonetaryExpenditures(String name, Integer money_expenditures) {
+         return categoryRepository.addMonetaryExpenditures(name, money_expenditures);
      }
 
-     public void deleteCategory(String id){
-        categoryRepository.deleteCategory(id);
+     public void deleteCategory(String name){
+        categoryRepository.deleteCategory(name);
+     }
+
+     public Collection<Category> getAllCategories(){
+        return categoryRepository.getAllBooks();
      }
 }
