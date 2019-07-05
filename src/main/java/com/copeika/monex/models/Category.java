@@ -46,4 +46,8 @@ public class Category {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void addMoneyExpenditures(Integer money_expenditures) {
+        this.money_expenditures += money_expenditures;
+    }
 }

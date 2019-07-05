@@ -8,5 +8,5 @@ public interface CategoryRepository {
     Category renameCategory(String id, String name);
     Category fetchCategory(String id);
     Category setLimit(String id, Integer limit);
-    Category setMonetaryExpenditures(String id, Integer money_expenditures);
+    Category addMonetaryExpenditures(String id, Integer money_expenditures);
 }

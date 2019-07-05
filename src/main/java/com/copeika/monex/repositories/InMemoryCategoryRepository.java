@@ -24,6 +24,7 @@ public class InMemoryCategoryRepository implements CategoryRepository {
         String id = UUID.randomUUID().toString();
         category.setId(id);
         category.setName(name);
+        category.setMoney_expenditures(0);
         categoryCache.put(id, category);
         return category;
     }
@@ -67,12 +68,12 @@ public class InMemoryCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public Category setMonetaryExpenditures(String id, Integer money_expenditures) {
+    public Category addMonetaryExpenditures(String id, Integer money_expenditures) {
         if (!categoryCache.containsKey(id)) {
             throw new NotFoundException();
         }
         Category category = categoryCache.get(id);
-        category.setMoney_expenditures(money_expenditures);
+        category.addMoneyExpenditures(money_expenditures);
         categoryCache.put(id, category);
         return category;
     }
