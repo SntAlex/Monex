@@ -2,6 +2,7 @@ package com.copeika.monex.repositories;
 
 import com.copeika.monex.models.Budget;
 import org.springframework.stereotype.Repository;
+import com.copeika.monex.exception.NotFoundException;
 
 @Repository
 public class InMemoryBudgetRepository implements BudgetRepository {
@@ -13,6 +14,9 @@ public class InMemoryBudgetRepository implements BudgetRepository {
 
     @Override
     public Budget fetchBudget() {
+        if (budgetCache == null) {
+            throw new NotFoundException();
+        }
         return budgetCache;
     }
 
@@ -32,6 +36,9 @@ public class InMemoryBudgetRepository implements BudgetRepository {
 
     @Override
     public void deleteBudget() {
+        if (budgetCache == null) {
+            throw new NotFoundException();
+        }
         budgetCache.setMoney(null);
     }
 }

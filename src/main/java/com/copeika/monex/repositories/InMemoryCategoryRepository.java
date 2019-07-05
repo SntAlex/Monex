@@ -1,6 +1,7 @@
 package com.copeika.monex.repositories;
 
 
+import com.copeika.monex.exception.NotFoundException;
 import com.copeika.monex.models.Category;
 import org.springframework.stereotype.Repository;
 
@@ -28,12 +29,18 @@ public class InMemoryCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public Category deleteCategory() {
-        return null;
+    public void deleteCategory(String id) {
+        if (!categoryCache.containsKey(id)) {
+            throw new NotFoundException();
+        }
+        categoryCache.remove(id);
     }
 
     @Override
     public Category renameCategory(String id, String name) {
+        if (!categoryCache.containsKey(id)) {
+            throw new NotFoundException();
+        }
         Category category = categoryCache.get(id);
         category.setName(name);
         categoryCache.put(id, category);
@@ -41,7 +48,32 @@ public class InMemoryCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public Category fetchCategory() {
-        return null;
+    public Category fetchCategory(String id) {
+        if (!categoryCache.containsKey(id)) {
+            throw new NotFoundException();
+        }
+        return categoryCache.get(id);
+    }
+
+    @Override
+    public Category setLimit(String id, Integer limit) {
+        if (!categoryCache.containsKey(id)) {
+            throw new NotFoundException();
+        }
+        Category category = categoryCache.get(id);
+        category.setLimit(limit);
+        categoryCache.put(id, category);
+        return  category;
+    }
+
+    @Override
+    public Category setMonetaryExpenditures(String id, Integer money_expenditures) {
+        if (!categoryCache.containsKey(id)) {
+            throw new NotFoundException();
+        }
+        Category category = categoryCache.get(id);
+        category.setMoney_expenditures(money_expenditures);
+        categoryCache.put(id, category);
+        return category;
     }
 }
