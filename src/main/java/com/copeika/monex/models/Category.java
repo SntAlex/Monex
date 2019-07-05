@@ -11,6 +11,9 @@ public class Category {
         this.limit = limit;
         this.money_expenditures = money_expenditures;
     }
+    public Category(){
+
+    }
 
     public String getName() {
         return name;
