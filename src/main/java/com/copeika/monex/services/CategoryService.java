@@ -41,6 +41,10 @@ public class CategoryService {
         categoryRepository.deleteCategory(name);
      }
 
+     public Category refreshMonetaryExpenditures(String name) {
+         return categoryRepository.refreshMonetaryExpenditures(name);
+     }
+
      public Collection<Category> getAllCategories(){
         return categoryRepository.getAllBooks();
      }

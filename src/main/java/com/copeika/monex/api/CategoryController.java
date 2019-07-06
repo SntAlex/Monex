@@ -15,9 +15,9 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @PostMapping(CATEGORY_PATH)
+    @PostMapping(value = CATEGORY_PATH)
     public ResponseEntity<?> addCategory(
-            @RequestHeader String name
+            @RequestParam String name
     ) {
         Category result = service.addCategory(name);
         return ResponseEntity.ok(result);
@@ -43,6 +43,38 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
+    @PatchMapping(value = CATEGORY_PATH + "/{name}", params = "after_name")
+    public ResponseEntity<Category> renameCategory(
+            @PathVariable String name,
+            @RequestParam String after_name
+            ) {
+        Category result = service.renameCategory(name, after_name);
+        return ResponseEntity.ok(result);
+    }
 
+    @PatchMapping(value = CATEGORY_PATH + "/{name}", params = "limit")
+    public ResponseEntity<Category> setLimit(
+            @PathVariable String name,
+            @RequestParam Integer limit
+    ) {
+        Category result = service.setLimit(name, limit);
+        return ResponseEntity.ok(result);
+    }
 
+   @PatchMapping(value = CATEGORY_PATH + "/{name}")
+    public ResponseEntity<Category> addMonetaryExpenditures(
+            @PathVariable String name,
+            @RequestBody Integer money
+    ) {
+        Category result = service.addMonetaryExpenditures(name, money);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = CATEGORY_PATH + "/{name}", params = "refresh_money")
+    public ResponseEntity<Category> refreshMonetaryExpenditures(
+            @PathVariable String name
+    ) {
+        Category result = service.refreshMonetaryExpenditures(name);
+        return ResponseEntity.ok(result);
+    }
 }

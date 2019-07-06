@@ -14,7 +14,7 @@ public class BudgetController {
     private BudgetService service;
 
     @PostMapping(BUDGET_PATH)
-    public ResponseEntity<?> createBudget(
+    public ResponseEntity<Budget> createBudget(
             @RequestBody Budget budget
     ) {
         Budget result = service.createBudget(budget.getMoney());

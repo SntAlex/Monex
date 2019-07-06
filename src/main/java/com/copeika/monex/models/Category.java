@@ -6,13 +6,13 @@ public class Category {
     private Integer limit;
     private Integer money_expenditures;
 
-    public Category(String name, Integer limit, Integer money_expenditures){
+    public Category(String name, Integer limit){
         this.name = name;
         this.limit = limit;
-        this.money_expenditures = money_expenditures;
+        this.money_expenditures = 0;
     }
     public Category(){
-
+        money_expenditures = 0;
     }
 
     public String getName() {
@@ -31,15 +31,16 @@ public class Category {
         this.limit = limit;
     }
 
-    public Integer getMoney_expenditures() {
+    public Integer getMoneyExpenditures() {
         return money_expenditures;
     }
 
-    public void setMoney_expenditures(Integer money_expenditures) {
+    public void setMonetaryExpenditures(Integer money_expenditures) {
         this.money_expenditures = money_expenditures;
     }
 
-    public void addMoneyExpenditures(Integer money_expenditures) {
+    public void addMonetaryExpenditures(Integer money_expenditures) {
         this.money_expenditures += money_expenditures;
     }
+
 }

@@ -11,5 +11,6 @@ public interface CategoryRepository {
     Category fetchCategory(String name);
     Category setLimit(String name, Integer limit);
     Category addMonetaryExpenditures(String name, Integer money_expenditures);
+    Category refreshMonetaryExpenditures(String name);
     Collection<Category> getAllBooks();
 }

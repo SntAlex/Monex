@@ -1,6 +1,7 @@
 package com.copeika.monex.repositories;
 
 
+import com.copeika.monex.exception.AlreadyExistException;
 import com.copeika.monex.exception.NotFoundException;
 import com.copeika.monex.models.Category;
 import org.springframework.stereotype.Repository;
@@ -21,9 +22,12 @@ public class InMemoryCategoryRepository implements CategoryRepository {
 
     @Override
     public Category addCategory(String name) {
+        if (categoryCache.containsKey(name)) {
+            throw new AlreadyExistException();
+        }
         Category category = new Category();
         category.setName(name);
-        category.setMoney_expenditures(0);
+        category.setMonetaryExpenditures(0);
         categoryCache.put(name, category);
         return category;
     }
@@ -73,7 +77,19 @@ public class InMemoryCategoryRepository implements CategoryRepository {
             throw new NotFoundException();
         }
         Category category = categoryCache.get(name);
-        category.addMoneyExpenditures(money_expenditures);
+        category.addMonetaryExpenditures(money_expenditures);
+        categoryCache.put(name, category);
+        return category;
+    }
+
+    @Override
+    public Category refreshMonetaryExpenditures(String name) {
+        if (!categoryCache.containsKey(name)) {
+            throw new NotFoundException();
+        }
+        Category category = categoryCache.get(name);
+        Integer temp = 0;
+        category.setMonetaryExpenditures(temp);
         categoryCache.put(name, category);
         return category;
     }
