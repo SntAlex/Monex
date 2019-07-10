@@ -10,7 +10,7 @@ import java.util.Collection;
 
 @Service
 public class CategoryService {
-    private final CategoryRepository categoryRepository;
+    public final CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
@@ -47,5 +47,9 @@ public class CategoryService {
 
      public Collection<Category> getAllCategories(String UserId ){
         return categoryRepository.getAllBooks(UserId);
+     }
+
+     public Integer getSumMonetaryExpenditures(String UserId) {
+         return categoryRepository.getSumMonetaryExpenditures(UserId);
      }
 }

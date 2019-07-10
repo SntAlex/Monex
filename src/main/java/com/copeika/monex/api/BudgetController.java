@@ -2,6 +2,7 @@ package com.copeika.monex.api;
 
 import com.copeika.monex.models.Budget;
 import com.copeika.monex.services.BudgetService;
+import com.copeika.monex.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +13,11 @@ public class BudgetController {
 
     @Autowired
     private BudgetService service;
+    private CategoryService catservice;
 
     @PostMapping(BUDGET_PATH)
     public ResponseEntity<Budget> createBudget(
-            @RequestParam String UserId,
+            @RequestHeader String UserId,
             @RequestBody Integer money
     ) {
         Budget result = service.createBudget(UserId, money);
@@ -24,7 +26,7 @@ public class BudgetController {
 
     @GetMapping(BUDGET_PATH)
     public ResponseEntity<Budget> takeBudget(
-        @RequestParam String UserId
+        @RequestHeader String UserId
     ) {
         Budget result = service.provideBudget(UserId);
         return ResponseEntity.ok(result);
@@ -32,7 +34,7 @@ public class BudgetController {
 
     @PatchMapping(BUDGET_PATH)
     public ResponseEntity<Budget> updateBudget(
-            @RequestParam String UserId,
+            @RequestHeader String UserId,
             @RequestBody Integer money
     ) {
         Budget update = service.updateBudget(UserId, money);
@@ -41,10 +43,17 @@ public class BudgetController {
 
     @DeleteMapping(BUDGET_PATH)
     public ResponseEntity<?> deleteBudget(
-            @RequestParam String UserId
+            @RequestHeader String UserId
     ) {
         service.deleteBudget(UserId);
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping(value = BUDGET_PATH, params = "cash_balance")
+    public ResponseEntity<Integer> getCashBalance(
+            @RequestHeader String UserId
+    ) {
+        Integer cash = service.provideBudget(UserId).getMoney() - catservice.getSumMonetaryExpenditures(UserId);
+        return ResponseEntity.ok(cash);
+    }
 }

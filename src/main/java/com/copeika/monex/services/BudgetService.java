@@ -30,4 +30,5 @@ public class BudgetService {
     public Budget updateBudget(String UserId, Integer money) {
         return budgetRepository.updateBudget(UserId, money);
     }
+
 }
