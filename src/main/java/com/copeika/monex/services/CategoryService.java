@@ -17,35 +17,35 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-     public Category addCategory(String name) {
-         return categoryRepository.addCategory(name);
+     public Category addCategory(String UserId, String name) {
+         return categoryRepository.addCategory(UserId, name);
      }
 
-     public Category renameCategory(String name, String after_name){
-        return categoryRepository.renameCategory(name, after_name);
+     public Category renameCategory(String UserId, String name, String after_name){
+        return categoryRepository.renameCategory(UserId, name, after_name);
      }
 
-     public Category fetchCategory(String name){
-        return categoryRepository.fetchCategory(name);
+     public Category fetchCategory(String UserId, String name){
+        return categoryRepository.fetchCategory(UserId, name);
      }
 
-     public Category setLimit(String name, Integer limit) {
-         return categoryRepository.setLimit(name, limit);
+     public Category setLimit(String UserId, String name, Integer limit) {
+         return categoryRepository.setLimit(UserId ,name, limit);
      }
 
-     public Category addMonetaryExpenditures(String name, Integer money_expenditures) {
-         return categoryRepository.addMonetaryExpenditures(name, money_expenditures);
+     public Category addMonetaryExpenditures(String UserId, String name, Integer money_expenditures) {
+         return categoryRepository.addMonetaryExpenditures(UserId ,name, money_expenditures);
      }
 
-     public void deleteCategory(String name){
-        categoryRepository.deleteCategory(name);
+     public void deleteCategory(String UserId, String name){
+        categoryRepository.deleteCategory(UserId, name);
      }
 
-     public Category refreshMonetaryExpenditures(String name) {
-         return categoryRepository.refreshMonetaryExpenditures(name);
+     public Category refreshMonetaryExpenditures(String UserId, String name) {
+         return categoryRepository.refreshMonetaryExpenditures(UserId, name);
      }
 
-     public Collection<Category> getAllCategories(){
-        return categoryRepository.getAllBooks();
+     public Collection<Category> getAllCategories(String UserId ){
+        return categoryRepository.getAllBooks(UserId);
      }
 }

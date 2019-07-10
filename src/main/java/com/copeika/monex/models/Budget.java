@@ -2,15 +2,14 @@ package com.copeika.monex.models;
 
 public class Budget {
     private Integer money;
-    private boolean check;
+    private Integer cash_balance;
+
 
     public Budget() {
-        check = true;
     }
 
     public Budget(Integer money){
         this.money = money;
-        check = true;
     }
 
     public int getMoney() {
@@ -21,11 +20,12 @@ public class Budget {
         this.money = money;
     }
 
-    public boolean getCheck() {
-        return check;
+    public Integer getCash_balance() {
+        return cash_balance;
     }
 
-    public void setCheck(boolean check) {
-        this.check = check;
+    public void setCash_balance(Integer cash_balance) {
+        this.cash_balance = cash_balance;
     }
+
 }

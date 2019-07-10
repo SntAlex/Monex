@@ -15,30 +15,35 @@ public class BudgetController {
 
     @PostMapping(BUDGET_PATH)
     public ResponseEntity<Budget> createBudget(
-            @RequestBody Budget budget
+            @RequestParam String UserId,
+            @RequestBody Integer money
     ) {
-        Budget result = service.createBudget(budget.getMoney());
+        Budget result = service.createBudget(UserId, money);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(BUDGET_PATH)
-    public ResponseEntity<Budget> takeBudget() {
-        Budget result = service.provideBudget();
+    public ResponseEntity<Budget> takeBudget(
+        @RequestParam String UserId
+    ) {
+        Budget result = service.provideBudget(UserId);
         return ResponseEntity.ok(result);
     }
 
     @PatchMapping(BUDGET_PATH)
-    public ResponseEntity<?> updateBudget(
-            @RequestBody Budget budget
+    public ResponseEntity<Budget> updateBudget(
+            @RequestParam String UserId,
+            @RequestBody Integer money
     ) {
-        Budget update = service.updateBudget(budget.getMoney());
+        Budget update = service.updateBudget(UserId, money);
         return ResponseEntity.ok(update);
     }
 
     @DeleteMapping(BUDGET_PATH)
     public ResponseEntity<?> deleteBudget(
+            @RequestParam String UserId
     ) {
-        service.deleteBudget();
+        service.deleteBudget(UserId);
         return ResponseEntity.ok().build();
     }
 

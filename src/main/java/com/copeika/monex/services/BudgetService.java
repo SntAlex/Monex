@@ -15,19 +15,19 @@ public class BudgetService {
         this.budgetRepository = budgetRepository;
     }
 
-    public Budget createBudget(Integer money) {
-        return budgetRepository.createBudget(money);
+    public Budget createBudget(String UserId, Integer money) {
+        return budgetRepository.createBudget(UserId, money);
     }
 
-    public void deleteBudget() {
-        budgetRepository.deleteBudget();
+    public void deleteBudget(String UserId) {
+        budgetRepository.deleteBudget(UserId);
     }
 
-    public Budget provideBudget(){
-        return budgetRepository.fetchBudget();
+    public Budget provideBudget(String UserId){
+        return budgetRepository.fetchBudget(UserId);
     }
 
-    public Budget updateBudget(Integer money) {
-        return budgetRepository.updateBudget(money);
+    public Budget updateBudget(String UserId, Integer money) {
+        return budgetRepository.updateBudget(UserId, money);
     }
 }

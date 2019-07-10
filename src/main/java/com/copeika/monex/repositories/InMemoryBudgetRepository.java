@@ -1,51 +1,57 @@
 package com.copeika.monex.repositories;
 
 import com.copeika.monex.exception.AlreadyExistException;
+import com.copeika.monex.exception.NotFoundException;
 import com.copeika.monex.models.Budget;
 import org.springframework.stereotype.Repository;
-import com.copeika.monex.exception.NotFoundException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class InMemoryBudgetRepository implements BudgetRepository {
-    private Budget budgetCache = new Budget();
+    private Map<String, Budget> budgetCache = new HashMap<>();
 
     public InMemoryBudgetRepository(){
     }
 
     @Override
-    public Budget fetchBudget() {
-        if (budgetCache.getCheck()) {
+    public Budget fetchBudget(String UserId) {
+        if (!budgetCache.containsKey(UserId)) {
             throw new NotFoundException();
         }
-        return budgetCache;
+        return budgetCache.get(UserId);
     }
 
     @Override
-    public Budget createBudget(Integer cash) {
-        if (!budgetCache.getCheck()) {
+    public Budget createBudget(String UserId, Integer cash) {
+        if (budgetCache.containsKey(UserId)) {
             throw new AlreadyExistException();
         }
-        budgetCache.setCheck(false);
-        budgetCache.setMoney(cash);
-        Budget budget = budgetCache;
+        Budget budget = new Budget();
+        budget.setMoney(cash);
+        budgetCache.put(UserId, budget);
         return budget;
     }
 
     @Override
-    public Budget updateBudget(Integer cash) {
-        if (budgetCache.getCheck()) {
+    public Budget updateBudget(String UserId, Integer cash) {
+        if (!budgetCache.containsKey(UserId)) {
             throw new NotFoundException();
         }
-        budgetCache.setMoney(cash);
-        Budget budget = budgetCache;
+
+        Budget budget = budgetCache.get(UserId);
+        budget.setMoney(cash);
+        budgetCache.put(UserId, budget);
         return budget;
     }
 
     @Override
-    public void deleteBudget() {
-        if (budgetCache.getCheck()) {
+    public void deleteBudget(String UserId) {
+        if (!budgetCache.containsKey(UserId)) {
             throw new NotFoundException();
         }
-        budgetCache.setCheck(true);
+        budgetCache.remove(UserId);
     }
+
 }
