@@ -15,9 +15,9 @@ public class BudgetController {
 
     @PostMapping(BUDGET_PATH)
     public ResponseEntity<Budget> createBudget(
-            @RequestBody Budget budget
+            @RequestBody Integer money
     ) {
-        Budget result = service.createBudget(budget.getMoney());
+        Budget result = service.createBudget(money);
         return ResponseEntity.ok(result);
     }
 
@@ -29,9 +29,9 @@ public class BudgetController {
 
     @PatchMapping(BUDGET_PATH)
     public ResponseEntity<?> updateBudget(
-            @RequestBody Budget budget
+            @RequestBody Integer money
     ) {
-        Budget update = service.updateBudget(budget.getMoney());
+        Budget update = service.updateBudget(money);
         return ResponseEntity.ok(update);
     }
 
