@@ -3,13 +3,13 @@ package com.copeika.monex.repositories;
 
 import com.copeika.monex.exception.AlreadyExistException;
 import com.copeika.monex.exception.NotFoundException;
+import com.copeika.monex.exception.NotValidValue;
 import com.copeika.monex.models.Category;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Repository
 public class InMemoryCategoryRepository implements CategoryRepository {
@@ -73,6 +73,10 @@ public class InMemoryCategoryRepository implements CategoryRepository {
 
     @Override
     public Category addMonetaryExpenditures(String name, Integer money_expenditures) {
+        if(!(money_expenditures>=1 && money_expenditures <= 10000000)) {
+            throw new NotValidValue();
+        }
+
         if (!categoryCache.containsKey(name)) {
             throw new NotFoundException();
         }

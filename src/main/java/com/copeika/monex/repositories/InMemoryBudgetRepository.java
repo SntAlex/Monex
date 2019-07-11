@@ -23,7 +23,7 @@ public class InMemoryBudgetRepository implements BudgetRepository {
 
     @Override
     public Budget createBudget(Integer cash) {
-        if(cash>=1 && cash <= 10000000) {
+        if(!(cash>=1 && cash <= 10000000)) {
             throw new NotValidValue();
         }
         if (!budgetCache.getCheck()) {
@@ -37,7 +37,7 @@ public class InMemoryBudgetRepository implements BudgetRepository {
 
     @Override
     public Budget updateBudget(Integer cash) {
-        if(cash>=1 && cash <= 10000000) {
+        if(!(cash>=1 && cash <= 10000000)) {
             throw new NotValidValue();
         }
         if (budgetCache.getCheck()) {
