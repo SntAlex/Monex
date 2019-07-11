@@ -1,6 +1,7 @@
 package com.copeika.monex.repositories;
 
 import com.copeika.monex.exception.AlreadyExistException;
+import com.copeika.monex.exception.NotValidValue;
 import com.copeika.monex.models.Budget;
 import org.springframework.stereotype.Repository;
 import com.copeika.monex.exception.NotFoundException;
@@ -22,6 +23,9 @@ public class InMemoryBudgetRepository implements BudgetRepository {
 
     @Override
     public Budget createBudget(Integer cash) {
+        if(cash>=1 && cash <= 10000000) {
+            throw new NotValidValue();
+        }
         if (!budgetCache.getCheck()) {
             throw new AlreadyExistException();
         }
@@ -33,6 +37,9 @@ public class InMemoryBudgetRepository implements BudgetRepository {
 
     @Override
     public Budget updateBudget(Integer cash) {
+        if(cash>=1 && cash <= 10000000) {
+            throw new NotValidValue();
+        }
         if (budgetCache.getCheck()) {
             throw new NotFoundException();
         }
