@@ -62,6 +62,9 @@ public class InMemoryCategoryRepository implements CategoryRepository {
 
     @Override
     public Category setLimit(String name, Integer limit) {
+        if(!(limit>=1 && limit <= 10000000)) {
+            throw new NotValidValue();
+        }
         if (!categoryCache.containsKey(name)) {
             throw new NotFoundException();
         }
